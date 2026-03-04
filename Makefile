@@ -6,9 +6,8 @@ BIN = bin
 
 .PHONY: all clean
 
-mkdir:
+${OBJ_DIR}:
 	@mkdir -p ${OBJ_DIR}
-	@mkdir -p ${BIN}
 
 error.o: error.c error.h
 	${CC} ${CFLAGS} -c $< -o ${OBJ_DIR}/$@
