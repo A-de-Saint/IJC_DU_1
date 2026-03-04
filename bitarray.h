@@ -128,7 +128,7 @@
         do {                                \
             if (jmeno_pole)                 \
                 free(jmeno_pole);           \
-        } while(0);
+        } while(0)
 
         //velikost pole v bitech
         #define bitarray_size(jmeno_pole)   \
@@ -151,7 +151,7 @@
                     jmeno_pole[i] = ~((bitarray_element)0);                         \
                 }                                                                   \
             }                                                                       \
-        } while(0);
+        } while(0)
 
         /** POZNAMKY PRO SETBIT
          * logika:
@@ -170,7 +170,7 @@
                     jmeno_pole[el_idx] |= ((bitarray_element)1) << b_idx;                   \
                 else                                                                        \
                     jmeno_pole[el_idx] &= ~(((bitarray_element)1) << b_idx);                \
-            } while(0);
+            } while(0)
         #else
             #define bitarray_setbit(jmeno_pole, index, bool_výraz)                          \
             do {                                                                            \
@@ -183,7 +183,7 @@
                     jmeno_pole[el_idx] |= ((bitarray_element)1) << b_idx;                   \
                 else                                                                        \
                     jmeno_pole[el_idx] &= ~(((bitarray_element)1) << b_idx);                \
-            } while(0);
+            } while(0)
         #endif
 
         /** POZNAMKY PRO GETBIT
