@@ -206,13 +206,13 @@
                 ((unsigned long)(index) >= jmeno_pole[0] ?                                      \
                 (error_exit("bitarray_getbit: Index %lu mimo rozsah 0..%lu",                    \
                         (unsigned long)(index), (unsigned long)jmeno_pole[0] - 1), 0)           \
-                : (jmeno_pole[(unsigned long)(index) / bit_size + 1]                            \
+                : (int)((jmeno_pole[(unsigned long)(index) / bit_size + 1]                      \
                     & (((bitarray_element)1)                                                    \
                         << ((bit_size - 1) - (unsigned long)(index) % bit_size))                \
                 )                                                                               \
-                >> ((bit_size - 1) - ((unsigned long)(index) % bit_size)))
+                >> ((bit_size - 1) - ((unsigned long)(index) % bit_size))))
         #endif
-
+        
     #endif
 
 #endif
