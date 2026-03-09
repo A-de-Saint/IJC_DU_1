@@ -1,3 +1,10 @@
+// eratosthenes.c
+// Řešení příkladu IJC-DU1, příklad a), 7.3.2026
+// Autor: Antonín Hrnčíř, FIT
+// Přeloženo: gcc 15.2.1
+/* Implementace eratosthenova síta pro nalezení prvočísel
+    - Nuluje vsechny neprvociselne indexy v bitovem poli */
+
 #include "bitarray.h"
 #include <math.h>
 

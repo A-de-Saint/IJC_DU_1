@@ -1,3 +1,12 @@
+// primes.c
+// Řešení příkladu IJC-DU1, příklad a), 8.3.2026
+// Autor: Antonín Hrnčíř, FIT
+// Přeloženo: gcc 15.2.1
+/* Program pro výpočet posledních 10 prvočísel
+    - využívá funkci Eratosthenes a bitové pole
+    - měří čas běhu programu
+    - OMEZENÍ: vyžaduje max. velikost zásobníku alespoň cca. 55MB */
+
 #include <stdio.h>
 #include "bitarray.h"
 #include <time.h>

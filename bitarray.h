@@ -1,3 +1,9 @@
+// bitarray.h
+// Řešení příkladu IJC-DU1, příklad a), 9.3.2026
+// Autor: Antonín Hrnčíř, FIT
+// Přeloženo: gcc 15.2.1
+// Rozhraní pro operace nad bitovým polem
+
 #ifndef BITARRAY_H
 #define BITARRAY_H
     

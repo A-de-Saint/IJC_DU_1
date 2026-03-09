@@ -1,3 +1,11 @@
+// no-comment.c
+// Řešení příkladu IJC-DU1, příklad b), 9.3.2026
+// Autor: Antonín Hrnčíř, FIT
+// Přeloženo: gcc 15.2.1
+/* Program pro odstraňení komentářů ze zdrojového kódu v jazyce C
+    s využitím stavového automatu
+    - OMEZENÍ: Není zaručena správnost pro chybný zdrojový kód */
+
 #define _POSIX_C_SOURCE 2 //pro fileno()
 #include <stdio.h>
 #include <stdlib.h>

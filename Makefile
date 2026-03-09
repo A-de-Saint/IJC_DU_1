@@ -1,3 +1,7 @@
+# Makefile
+# Makefile pro IJC-DU1, 9.3.2026
+# Autor: Antonín Hrnčíř, FIT
+
 # COMPILER A FLAGY #
 CC = gcc
 CFLAGS = -g -std=c11 -pedantic -Wall -Wextra
@@ -47,20 +51,22 @@ $(NC_OBJ): no-comment.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c no-comment.c -o $@
 
 $(ERAT_OBJ): eratosthenes.c bitarray.h | $(OBJ_DIR)
-	$(CC) -O2 $(CFLAGS) -c eratosthenes.c -o $(ERAT_OBJ)
+	$(CC) -O2 $(CFLAGS) -c eratosthenes.c -o $@
 
 $(ERAT_OBJ_I): eratosthenes.c bitarray.h | $(OBJ_DIR)
-	$(CC) -O2 -DUSE_INLINE $(CFLAGS) -c eratosthenes.c -o $(ERAT_OBJ_I)
+	$(CC) -O2 -DUSE_INLINE $(CFLAGS) -c eratosthenes.c -o $@
 
 $(PRIMES_OBJ): primes.c bitarray.h | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c primes.c -o $(PRIMES_OBJ)
+	$(CC) $(CFLAGS) -c primes.c -o $@
 
 $(PRIMES_OBJ_I): primes.c bitarray.h | $(OBJ_DIR)
-	$(CC) -DUSE_INLINE $(CFLAGS) -c primes.c -o $(PRIMES_OBJ_I)
+	$(CC) -DUSE_INLINE $(CFLAGS) -c primes.c -o $@
 
 # PRIPADNE VYTVORENI SLOZEK #
-$(OBJ_DIR) $(BIN_DIR):
+$(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+
+ $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 	
 clean: 

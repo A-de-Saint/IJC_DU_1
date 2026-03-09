@@ -1,3 +1,9 @@
+// error.c
+// Řešení příkladu IJC-DU1, příklad b), 9.3.2026
+// Autor: Antonín Hrnčíř, FIT
+// Přeloženo: gcc 15.2.1
+/* Implementace funkcí pro chybová hlášení z error.h */
+
 #include "error.h"
 #include <stdio.h>
 #include <stdlib.h>
