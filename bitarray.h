@@ -5,6 +5,7 @@
     #include <stdbool.h> //true a false
     #include <limits.h> //CHAR_BIT
     #include "error.h" //error_exit
+    #include <assert.h> //pro static_assert
 
     /* --- DEFINICE BITARRAY --- */
 
@@ -35,6 +36,7 @@
 
     //vytvori pole jmeno_pole s velikosti v prvnim elementu, nulovano
     #define bitarray_create(jmeno_pole, velikost)                                                       \
+        static_assert(velikost >= 0, "bitarray_create: Velikost musi byt kladna");                      \
         bitarray_element jmeno_pole[bitarr_elem_size(velikost)] = {[0] = (bitarray_element)(velikost)}
 
     //alokuje jmeno_pole s velikosti v prvnim elementu, nulovano
@@ -48,7 +50,11 @@
         }                                                                                       \
         jmeno_pole[0] = (bitarray_element)(velikost);                                           \
 
+    /* --- INLINE FUNKCE --- */
+
     #ifdef USE_INLINE
+        /* bitarray_create a bitarray_alloc nelze implementovat jako inline funkce */
+
         static inline void bitarray_free(bitarray_t jmeno_pole)
         {
             //jestlize je NULL, neuvolnovat
@@ -59,7 +65,7 @@
         //vrati velikost bitarray v bitech
         static inline unsigned long bitarray_size(bitarray_t jmeno_pole)
         {
-            return jmeno_pole[0];
+            return (unsigned long)jmeno_pole[0];
         }
 
         //vyplni bitarray 0 (false), nebo 1 (true)
@@ -108,20 +114,18 @@
             if (index >= jmeno_pole[0])
                 error_exit("bitarray_getbit: Index %lu mimo rozsah 0..%lu", index, jmeno_pole[0] - 1);
             #endif
-            
+
             unsigned long el_idx = index / bit_size + 1;
             unsigned long b_idx = (bit_size - 1) - index % bit_size;
-            
 
-            //posun jednicky na bitovy index elementu
-            bitarray_element changer = ((bitarray_element)1) << b_idx;
-
-            //vysledek bude 0 pokud bit == 0, jinak bude 2^b_idx
-            if (jmeno_pole[el_idx] & changer)
-                return 1;
-            return 0;
+            return (int)
+                ((jmeno_pole[el_idx]
+                    & (((bitarray_element)1) << (b_idx)))
+                >> (b_idx));
         }
     #else
+
+        /* --- MAKRO EKVIVALENTY INLINE FUNKCI --- */
 
         //uvolni pole z heapu
         #define bitarray_free(jmeno_pole)   \
@@ -132,7 +136,7 @@
 
         //velikost pole v bitech
         #define bitarray_size(jmeno_pole)   \
-            jmeno_pole[0]
+            ((unsigned long)jmeno_pole[0])
 
         //naplni pole nulami (false), nebo jednickami (true)
         #define bitarray_fill(jmeno_pole, bool_výraz)                               \
