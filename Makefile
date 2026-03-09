@@ -8,12 +8,14 @@ ERAT_OBJ = $(OBJ_DIR)/eratosthenes.o
 ERAT_OBJ_I = $(OBJ_DIR)/eratosthenes-i.o
 PRIMES_OBJ = $(OBJ_DIR)/primes.o
 PRIMES_OBJ_I = $(OBJ_DIR)/primes-i.o
+NC_OBJ = $(OBJ_DIR)/no-comment.o
 
+NC_BIN = $(BIN_DIR)/no-comment
 PRIMES_BIN = $(BIN_DIR)/primes
 
 .PHONY: all run clean
 
-all: $(PRIMES_BIN) $(PRIMES_BIN)-i
+all: $(PRIMES_BIN) $(PRIMES_BIN)-i $(NC_BIN)
 
 $(PRIMES_BIN): $(ERROR_OBJ) $(ERAT_OBJ) $(PRIMES_OBJ) | $(BIN_DIR)
 	$(CC) $(ERROR_OBJ) $(ERAT_OBJ) $(PRIMES_OBJ) $(LD_LIBS) -o $@
@@ -21,12 +23,18 @@ $(PRIMES_BIN): $(ERROR_OBJ) $(ERAT_OBJ) $(PRIMES_OBJ) | $(BIN_DIR)
 $(PRIMES_BIN)-i: $(ERROR_OBJ) $(ERAT_OBJ_I) $(PRIMES_OBJ_I) | $(BIN_DIR)
 	$(CC) $(ERROR_OBJ) $(ERAT_OBJ_I) $(PRIMES_OBJ_I) $(LD_LIBS) -o $@
 
+$(NC_BIN): $(NC_OBJ) $(ERROR_OBJ) | $(BIN_DIR)
+	$(CC) $(CFLAGS) $(ERROR_OBJ) $(NC_OBJ) -o $@
+
 $(OBJ_DIR) $(BIN_DIR):
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(BIN_DIR)
 
 $(ERROR_OBJ): error.c error.h | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c error.c -o $@
+
+$(NC_OBJ): no-comment.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c no-comment.c -o $@
 
 $(ERAT_OBJ): eratosthenes.c bitarray.h | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c eratosthenes.c -o $(ERAT_OBJ)

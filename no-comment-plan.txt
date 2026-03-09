@@ -1,0 +1,9 @@
+Possible states:
+    NORMAL
+    STR_LIT -> "
+    CHAR_LIT -> '
+    //COMMENT -> //
+    /*COMMENT -> /*
+
+if char == \ && !escaped -> escaped = true;
+else -> escaped = false;
