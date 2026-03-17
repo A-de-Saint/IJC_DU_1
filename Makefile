@@ -35,13 +35,13 @@ run: $(PRIMES_BIN) $(PRIMES_BIN_I)
 
 # SPUSTITELNE BINARKY #
 $(PRIMES_BIN): $(ERROR_OBJ) $(ERAT_OBJ) $(PRIMES_OBJ) | $(BIN_DIR)
-	$(CC) $(ERROR_OBJ) $(ERAT_OBJ) $(PRIMES_OBJ) $(LD_LIBS) -o $@
+	$(CC) $(ERROR_OBJ) $(ERAT_OBJ) $(PRIMES_OBJ) -o $@ $(LD_LIBS)
 
 $(PRIMES_BIN_I): $(ERROR_OBJ) $(ERAT_OBJ_I) $(PRIMES_OBJ_I) | $(BIN_DIR)
-	$(CC) $(ERROR_OBJ) $(ERAT_OBJ_I) $(PRIMES_OBJ_I) $(LD_LIBS) -o $@
+	$(CC) $(ERROR_OBJ) $(ERAT_OBJ_I) $(PRIMES_OBJ_I) -o $@ $(LD_LIBS)
 
 $(NC_BIN): $(NC_OBJ) $(ERROR_OBJ) | $(BIN_DIR)
-	$(CC) $(CFLAGS) $(ERROR_OBJ) $(NC_OBJ) -o $@
+	$(CC) $(ERROR_OBJ) $(NC_OBJ) -o $@
 
 # OBJEKTY #
 $(ERROR_OBJ): error.c error.h | $(OBJ_DIR)

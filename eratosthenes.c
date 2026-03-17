@@ -25,9 +25,12 @@ void Eratosthenes(bitarray_t pole)
         if (bitarray_getbit(pole, idx) == 0)
             continue;
         
-        //nuluje vsechny nasobky idx, ktery ma hodnotu bitu 1
-        unsigned long next_idx = idx;
-        for (; next_idx < bitarray_size(pole); next_idx += idx)
-            bitarray_setbit(pole, next_idx, false);
+        /* 
+            next_idx muze byt idx^2, protoze vsechny nasobky k*idx, kde k < idx,
+            uz byly nutne vynulovany v predchozich iteracich 
+        */
+        unsigned long next_idx = idx * idx;
+        for (; next_idx < bitarray_size(pole); next_idx += idx) //next_idx += idx je jako next_idx = (k+1) * idx
+            bitarray_setbit(pole, next_idx, false); //nuluje nasobky
     }
 }
