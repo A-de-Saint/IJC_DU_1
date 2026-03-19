@@ -11,56 +11,44 @@ LD_LIBS = -lm
 OBJ_DIR = obj
 BIN_DIR = bin
 
-# UMISTENI OBJEKTU #
-ERROR_OBJ = $(OBJ_DIR)/error.o
-ERAT_OBJ = $(OBJ_DIR)/eratosthenes.o
-ERAT_OBJ_I = $(OBJ_DIR)/eratosthenes-i.o
-PRIMES_OBJ = $(OBJ_DIR)/primes.o
-PRIMES_OBJ_I = $(OBJ_DIR)/primes-i.o
-NC_OBJ = $(OBJ_DIR)/no-comment.o
+# OBJEKTY #
+NO_COMMENT_OBJS = $(OBJ_DIR)/no-comment.o $(OBJ_DIR)/error.o
+PRIMES_OBJS = $(OBJ_DIR)/error.o $(OBJ_DIR)/eratosthenes.o $(OBJ_DIR)/primes.o
+PRIMES_I_OBJS = $(OBJ_DIR)/error.o $(OBJ_DIR)/eratosthenes-i.o $(OBJ_DIR)/primes-i.o
 
-# UMISTENI BINAREK #
-NC_BIN = $(BIN_DIR)/no-comment
+# BINARKY #
+NO_COMMENT_BIN = $(BIN_DIR)/no-comment
 PRIMES_BIN = $(BIN_DIR)/primes
 PRIMES_BIN_I = $(BIN_DIR)/primes-i
 
-
 .PHONY: all run clean
 
-all: $(PRIMES_BIN) $(PRIMES_BIN_I) $(NC_BIN)
+all: $(PRIMES_BIN) $(PRIMES_BIN_I) $(NO_COMMENT_BIN)
 
 run: $(PRIMES_BIN) $(PRIMES_BIN_I)
 	ulimit -s 60000 && ./$(BIN_DIR)/primes
 	ulimit -s 60000 && ./$(BIN_DIR)/primes-i
+	./$(BIN_DIR)/no-comment no-comment.c >no-comment.txt
 
 # SPUSTITELNE BINARKY #
-$(PRIMES_BIN): $(ERROR_OBJ) $(ERAT_OBJ) $(PRIMES_OBJ) | $(BIN_DIR)
-	$(CC) $(ERROR_OBJ) $(ERAT_OBJ) $(PRIMES_OBJ) -o $@ $(LD_LIBS)
+$(PRIMES_BIN): $(PRIMES_OBJS) | $(BIN_DIR)
+	$(CC) $^ -o $@ $(LD_LIBS)
 
-$(PRIMES_BIN_I): $(ERROR_OBJ) $(ERAT_OBJ_I) $(PRIMES_OBJ_I) | $(BIN_DIR)
-	$(CC) $(ERROR_OBJ) $(ERAT_OBJ_I) $(PRIMES_OBJ_I) -o $@ $(LD_LIBS)
+$(PRIMES_BIN_I): $(PRIMES_I_OBJS) | $(BIN_DIR)
+	$(CC) $^ -o $@ $(LD_LIBS)
 
-$(NC_BIN): $(NC_OBJ) $(ERROR_OBJ) | $(BIN_DIR)
-	$(CC) $(ERROR_OBJ) $(NC_OBJ) -o $@
+$(NO_COMMENT_BIN): $(NO_COMMENT_OBJS) | $(BIN_DIR)
+	$(CC) $^ -o $@
+
+# INLINE OBJEKTY #
+$(OBJ_DIR)/%-i.o: %.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -MMD -DUSE_INLINE -c $< -o $@
 
 # OBJEKTY #
-$(ERROR_OBJ): error.c error.h | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c error.c -o $@
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -MMD -c $< -o $@
 
-$(NC_OBJ): no-comment.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c no-comment.c -o $@
-
-$(ERAT_OBJ): eratosthenes.c bitarray.h | $(OBJ_DIR)
-	$(CC) -O2 $(CFLAGS) -c eratosthenes.c -o $@
-
-$(ERAT_OBJ_I): eratosthenes.c bitarray.h | $(OBJ_DIR)
-	$(CC) -O2 -DUSE_INLINE $(CFLAGS) -c eratosthenes.c -o $@
-
-$(PRIMES_OBJ): primes.c bitarray.h | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c primes.c -o $@
-
-$(PRIMES_OBJ_I): primes.c bitarray.h | $(OBJ_DIR)
-	$(CC) -DUSE_INLINE $(CFLAGS) -c primes.c -o $@
+-include $(OBJ_DIR)/*.d
 
 # PRIPADNE VYTVORENI SLOZEK #
 $(OBJ_DIR):

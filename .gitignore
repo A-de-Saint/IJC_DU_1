@@ -1,5 +1,6 @@
 obj
 bin
 test_folder
-no-comment-plan.txt
+*.txt
 .unused
+*.zip
