@@ -25,7 +25,7 @@ PRIMES_BIN_I = $(BIN_DIR)/primes-i
 
 all: $(PRIMES_BIN) $(PRIMES_BIN_I) $(NO_COMMENT_BIN)
 
-run: $(PRIMES_BIN) $(PRIMES_BIN_I)
+run: $(PRIMES_BIN) $(PRIMES_BIN_I) $(NO_COMMENT_BIN)
 	ulimit -s 60000 && ./$(BIN_DIR)/primes
 	ulimit -s 60000 && ./$(BIN_DIR)/primes-i
 	./$(BIN_DIR)/no-comment no-comment.c >no-comment.txt
