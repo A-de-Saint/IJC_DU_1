@@ -127,6 +127,7 @@ int main(int argc, char **argv)
                 {
                     state = CODE;
                     sp_eff = NOTHING;
+                    putchar(' ');
                 }
                 else if (ch == '*')
                     sp_eff = STAR_READ;

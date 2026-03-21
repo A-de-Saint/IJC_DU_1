@@ -4,3 +4,4 @@ test_folder
 *.txt
 .unused
 *.zip
+tests
