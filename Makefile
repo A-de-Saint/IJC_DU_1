@@ -48,7 +48,7 @@ $(OBJ_DIR)/%-i.o: %.c | $(OBJ_DIR)
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -MMD -c $< -o $@
 
--include $(OBJ_DIR)/*.d
+-include $(OBJ_DIR)/*.d 
 
 # PRIPADNE VYTVORENI SLOZEK #
 $(OBJ_DIR):
