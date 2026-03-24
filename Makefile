@@ -4,7 +4,7 @@
 
 # COMPILER A FLAGY #
 CC = gcc
-CFLAGS = -g -std=c11 -pedantic -Wall -Wextra
+CFLAGS = -O2 -g -std=c11 -pedantic -Wall -Wextra
 LD_LIBS = -lm
 
 # SLOZKY #

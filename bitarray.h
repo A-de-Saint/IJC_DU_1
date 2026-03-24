@@ -77,16 +77,17 @@
         //vyplni bitarray 0 (false), nebo 1 (true)
         static inline void bitarray_fill(bitarray_t jmeno_pole, bool bool_výraz)
         {
+            unsigned long memb_count = bitarr_elem_size(jmeno_pole[0]);
             if (!bool_výraz)
             {
-                for (unsigned long i = 1; i < bitarr_elem_size(jmeno_pole[0]); i++)
+                for (unsigned long i = 1; i < memb_count; i++)
                 {
                     jmeno_pole[i] = 0;
                 }
             }
             else
             {
-                for (unsigned long i = 1; i < bitarr_elem_size(jmeno_pole[0]); i++)
+                for (unsigned long i = 1; i < memb_count; i++)
                 {
                     jmeno_pole[i] = ~((bitarray_element)0);
                 }
@@ -147,16 +148,17 @@
         //naplni pole nulami (false), nebo jednickami (true)
         #define bitarray_fill(jmeno_pole, bool_výraz)                               \
         do {                                                                        \
+            unsigned long memb_count = bitarr_elem_size(jmeno_pole[0]);             \
             if (!(bool_výraz))                                                      \
             {                                                                       \
-                for (unsigned long i = 1; i < bitarr_elem_size(jmeno_pole[0]); i++) \
+                for (unsigned long i = 1; i < memb_count; i++)                      \
                 {                                                                   \
                     jmeno_pole[i] = 0;                                              \
                 }                                                                   \
             }                                                                       \
             else                                                                    \
             {                                                                       \
-                for (unsigned long i = 1; i < bitarr_elem_size(jmeno_pole[0]); i++) \
+                for (unsigned long i = 1; i < memb_count; i++)                      \
                 {                                                                   \
                     jmeno_pole[i] = ~((bitarray_element)0);                         \
                 }                                                                   \
