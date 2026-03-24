@@ -153,5 +153,11 @@ int main(int argc, char **argv)
             escaped = false;
     }
 
+    //jestlize bylo lomitko na konci (nemelo by), tak doplnit
+    if (sp_eff == SLASH_READ)
+        putchar('/');
+
+    fclose(file);
+
     return 0;
 }
